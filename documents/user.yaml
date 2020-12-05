@@ -1,0 +1,58 @@
+openapi: "3.0.0"
+info:
+  title: User REST APIs
+  description: Documentation for the User REST APIs.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+paths:
+  /api/user:
+    post:
+      summary: Create a new User
+      operationId: create-user
+      tags:
+        - user
+      parameters:
+        - name: firstName
+          in: path
+          description: The User first name.
+          required: true
+          schema:
+            type: string
+            example: Henry
+        - name: lastName
+          in: path
+          description: The User last name.
+          required: true
+          schema:
+            type: string
+            example: Lee
+        - name: userParameters
+          in: query
+          description: Additional User parameters.
+          schema:
+            type: object
+            properties:
+              age:
+                type: integer
+                format: int32
+                example: 28
+              weigth:
+                type: string
+                example: 78
+              addresses:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    street:
+                      type: string
+                    houseNumber:
+                      type: string
+                    city:
+                      type: string
+                    postCode:
+                      type: string
+      responses:
+        '201':
+          description: User successfully created.
