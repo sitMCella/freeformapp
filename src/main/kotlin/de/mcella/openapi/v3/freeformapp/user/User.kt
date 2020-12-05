@@ -3,7 +3,7 @@ package de.mcella.openapi.v3.freeformapp.user
 import de.mcella.openapi.v3.freeformapp.InvalidRequestException
 
 @Suppress("DataClassPrivateConstructor")
-data class User private constructor(
+data class User(
     val firstName: String,
     val lastName: String,
     val optionalFields: Map<String, String>,
@@ -12,10 +12,10 @@ data class User private constructor(
 
     companion object {
 
-        private const val FIRST_NAME_PARAMETER = "firstName"
-        private const val LAST_NAME_PARAMETER = "lastName"
-        private const val AGE_PARAMETER = "age"
-        private const val WEIGHT_PARAMETER = "weight"
+        const val FIRST_NAME_PARAMETER = "firstName"
+        const val LAST_NAME_PARAMETER = "lastName"
+        const val AGE_PARAMETER = "age"
+        const val WEIGHT_PARAMETER = "weight"
 
         fun convert(parameters: Map<String, List<String>>): User {
             val firstName = getFirstName(parameters)

@@ -1,6 +1,7 @@
 package de.mcella.openapi.v3.freeformapp.user
 
 import org.slf4j.LoggerFactory
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.util.MultiValueMap
 import org.springframework.web.bind.annotation.PostMapping
@@ -20,9 +21,11 @@ class UserController() {
     @PostMapping("$BASE_URL/user")
     fun create(
         @RequestParam queryParameters: MultiValueMap<String, String>
-    ): ResponseEntity<String> {
+    ): ResponseEntity<User> {
         val user = User.convert(queryParameters)
         logger.info("Stored user: {}", user)
-        return ResponseEntity.created(URI("$BASE_URL/user")).body("")
+        val bodyBuilder = ResponseEntity.status(HttpStatus.CREATED)
+        bodyBuilder.location(URI("$BASE_URL/user/${user.firstName}"))
+        return bodyBuilder.body(user)
     }
 }
